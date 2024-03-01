@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ServerIdPage = () => {
-  return (
-    <div>ServerIdPage</div>
-  )
-}
+  return <div>ServerIdPage</div>;
+};
 
-export default ServerIdPage
+export default ServerIdPage;
