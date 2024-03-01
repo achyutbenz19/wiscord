@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,8 +22,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { FileUpload } from "@/components/file-upload";
 import { useRouter } from "next/navigation";
-import { FileUpload } from "../file-upload";
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -34,8 +35,12 @@ const formSchema = z.object({
 });
 
 export const InitialModal = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
-  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -45,17 +50,22 @@ export const InitialModal = () => {
     },
   });
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {};
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      await axios.post("/api/servers", values);
+      form.reset();
+      router.refresh();
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <Dialog open>
@@ -80,9 +90,9 @@ export const InitialModal = () => {
                     <FormItem>
                       <FormControl>
                         <FileUpload
-                          onChange={field.onChange}
-                          value={field.value}
                           endpoint="serverImage"
+                          value={field.value}
+                          onChange={field.onChange}
                         />
                       </FormControl>
                     </FormItem>
