@@ -4,7 +4,7 @@ import { ActionTooltip } from "../ui/action-tooltip";
 import { useModal } from "@/hooks/use-modal-store";
 
 export const NavigationAction = () => {
-  const { onOpen } = useModal()
+  const { onOpen } = useModal();
   return (
     <div>
       <ActionTooltip side="right" align="center" label="Add a server">
