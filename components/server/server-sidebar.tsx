@@ -1,8 +1,8 @@
 import { currentProfile } from "@/lib/current-profile";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { redirect } from "next/navigation";
 import React from "react";
 import { Separator } from "../ui/separator";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface ServerSidebarProps {
   serverId: string;
