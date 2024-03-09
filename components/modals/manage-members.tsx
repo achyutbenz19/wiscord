@@ -71,9 +71,20 @@ export const MembersModal = () => {
 
   const onKick = async (memberId: string) => {
     try {
-
+      setLoadingId(memberId);
+      const url = qs.stringifyUrl({
+        url: `/api/members/${memberId}`,
+        query: {
+          serverId: server.id,
+        },
+      });
+      const response = await axios.delete(url);
+      router.refresh();
+      onOpen("manageMembers", { server: response.data });
     } catch (err) {
-        
+      console.log(err);
+    } finally {
+      setLoadingId("");
     }
   };
 
