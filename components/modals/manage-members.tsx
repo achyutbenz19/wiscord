@@ -34,6 +34,8 @@ import { UserAvatar } from "../ui/user-avatar";
 import { useState } from "react";
 import { MemberRole } from "@prisma/client";
 import qs from "query-string";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const roleIconMap = {
   GUEST: null,
@@ -42,14 +44,24 @@ const roleIconMap = {
 };
 
 export const MembersModal = () => {
+  const router = useRouter();
   const [loadingId, setLoadingId] = useState("");
-  const { isOpen, onClose, type, data } = useModal();
+  const { isOpen, onOpen, onClose, type, data } = useModal();
   const isModalOpen = isOpen && type == "manageMembers";
   const { server } = data as { server: ServerWithMembersWithProfiles };
 
   const onRoleChange = async (memberId: string, role: MemberRole) => {
     try {
       setLoadingId(memberId);
+      const url = qs.stringifyUrl({
+        url: `/api/members/${memberId}`,
+        query: {
+          serverId: server.id,
+        },
+      });
+      const response = await axios.patch(url, { role });
+      router.refresh();
+      onOpen("manageMembers", { server: response.data });
     } catch (err) {
       console.log(err);
     } finally {
@@ -57,7 +69,13 @@ export const MembersModal = () => {
     }
   };
 
-  const onKick = async (memberId: string) => {};
+  const onKick = async (memberId: string) => {
+    try {
+
+    } catch (err) {
+        
+    }
+  };
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
