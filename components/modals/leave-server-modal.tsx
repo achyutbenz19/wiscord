@@ -1,4 +1,7 @@
 "use client";
+import axios from "axios";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
@@ -8,17 +11,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useModal } from "@/hooks/use-modal-store";
-import { Button } from "../ui/button";
-import { useState } from "react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export const LeaveServerModal = () => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
   const { isOpen, onClose, type, data } = useModal();
-  const isModalOpen = isOpen && type == "leaveServer";
+  const router = useRouter();
+  const isModalOpen = isOpen && type === "leaveServer";
   const { server } = data;
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const onClick = async () => {
     try {
@@ -27,8 +28,8 @@ export const LeaveServerModal = () => {
       onClose();
       router.refresh();
       router.push("/");
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
