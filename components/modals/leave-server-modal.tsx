@@ -22,17 +22,17 @@ export const LeaveServerModal = () => {
 
   const onClick = async () => {
     try {
-      setIsLoading(true)
-      await axios.patch(`/api/servers/${server?.id}/leave`)
-      onClose()
-      router.refresh()
-      router.push("/")
+      setIsLoading(true);
+      await axios.patch(`/api/servers/${server?.id}/leave`);
+      onClose();
+      router.refresh();
+      router.push("/");
     } catch (err) {
-      console.log(err)
+      console.log(err);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
@@ -42,23 +42,19 @@ export const LeaveServerModal = () => {
             Leave Server
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Are you sure you want to leave <span className="font-semibold text-indigo-500">{server?.name}</span>?
+            Are you sure you want to leave{" "}
+            <span className="font-semibold text-indigo-500">
+              {server?.name}
+            </span>
+            ?
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="bg-gray-100 px-6 py-4">
           <div className="flex items-center justify-between w-full">
-            <Button
-              disabled={isLoading}
-              onClick={onClose}
-              variant="ghost"
-            >
+            <Button disabled={isLoading} onClick={onClose} variant="ghost">
               Cancel
             </Button>
-            <Button
-              disabled={isLoading}
-              variant="primary"
-              onClick={onClick}
-            >
+            <Button disabled={isLoading} variant="primary" onClick={onClick}>
               Confirm
             </Button>
           </div>
