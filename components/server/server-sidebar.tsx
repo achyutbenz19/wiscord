@@ -94,7 +94,7 @@ const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
                 })),
               },
               {
-                label: "Voice Channels",
+                label: "Audio Channels",
                 type: "channel",
                 data: audioChannels?.map((channel) => ({
                   id: channel.id,
@@ -150,7 +150,7 @@ const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
               sectionType="channels"
               channelType={ChannelType.AUDIO}
               role={role}
-              label="Voice Channels"
+              label="Audio Channels"
             />
             <div className="space-y-[2px]">
               {audioChannels.map((channel) => (
