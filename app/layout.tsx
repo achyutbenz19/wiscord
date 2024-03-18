@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { cn } from "@/lib/utils";
 import { ModalProvider } from "@/providers/modal-providers";
 import { SocketProvider } from "@/providers/socket-provider";
+import { QueryProvider } from "@/providers/query-provider";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -44,8 +45,10 @@ export default function RootLayout({
             storageKey="wiscord-theme"
           >
             <SocketProvider>
-              <ModalProvider />
-              {children}
+              <QueryProvider>
+                <ModalProvider />
+                {children}
+              </QueryProvider>
             </SocketProvider>
           </ThemeProvider>
         </body>
