@@ -235,15 +235,17 @@ export const ChatItem = ({
               />
             </ActionTooltip>
           )}
-          {/* <ActionTooltip label="Delete">
+          <ActionTooltip label="Delete">
             <Trash
-              onClick={() => onOpen("deleteMessage", { 
-                apiUrl: `${socketUrl}/${id}`,
-                query: socketQuery,
-               })}
+              onClick={() =>
+                onOpen("deleteMessage", {
+                  apiUrl: `${socketUrl}/${id}`,
+                  query: socketQuery,
+                })
+              }
               className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
             />
-          </ActionTooltip> */}
+          </ActionTooltip>
         </div>
       )}
     </div>
