@@ -64,7 +64,7 @@ const ServerSearch = ({ data }: ServerSearchProps) => {
               <CommandGroup key={label} heading={label}>
                 {data?.map(({ id, icon, name }) => {
                   return (
-                    <CommandItem>
+                    <CommandItem key={id}>
                       {icon}
                       <span>{name}</span>
                     </CommandItem>
