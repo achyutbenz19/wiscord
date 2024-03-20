@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { ModalProvider } from "@/providers/modal-providers";
 import { SocketProvider } from "@/providers/socket-provider";
 import { QueryProvider } from "@/providers/query-provider";
+import { Analytics } from "@vercel/analytics/react";
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -46,6 +47,7 @@ export default function RootLayout({
           >
             <SocketProvider>
               <QueryProvider>
+                <Analytics />
                 <ModalProvider />
                 {children}
               </QueryProvider>
